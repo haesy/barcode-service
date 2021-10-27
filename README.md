@@ -13,8 +13,8 @@ REST API to generate barcodes based on ZXing and Quarkus.
 * Maven
 
 ## Usage
-1. Build with Maven: ```mvn clean compile```
-2. The folder target/quarkus-app contains the whole application with all dependencies
+1. Build with Maven: ```mvn clean package```
+2. The directory target/quarkus-app contains the whole application with all dependencies
 3. Execute ```java -jar quarkus-run.jar``` to start the server
 4. Visit localhost:8080
 
