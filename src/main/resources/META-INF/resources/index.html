@@ -1,0 +1,309 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Barcode Service</title>
+<style type="text/css">
+body {
+	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+}
+table {
+	border-collapse: collapse;
+}
+th, td {
+	border: 1px solid black;
+	padding: 8px;
+	max-width: 300px;
+}
+img {
+	clear: both;
+	margin: 4px;
+	border: 1px solid #ccc;
+}
+.barcode-content {
+	font-family: monospace;
+}
+.td-left {
+	text-align: left; 
+}
+.td-center {
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<h1>Barcode Service</h1>
+	<p>
+		All examples are generated live (may be cached by your browser). They grey border around barcodes is only a visual hint and not part of the final image.
+	<p/>
+	<section>
+		<h2>Overview of supported formats</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Path</th>
+					<th>Content</th>
+					<th>Example</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="td-left">Code-128</td>
+					<td class="td-left">1-D</td>
+					<td class="td-left">/code-128</td>
+					<td class="td-left">1 to 80 ASCII characters.</td>
+					<td class="td-center">
+						<img src="code-128?content=ABC-123&height=32" alt="Code-128 of ABC-123">
+						<div class="barcode-content">ABC-123</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="td-left">EAN-8</td>
+					<td class="td-left">1-D</td>
+					<td class="td-left">/ean-8</td>
+					<td class="td-left">Exactly 7 digits.</td>
+					<td class="td-center">
+						<img src="ean-8?content=0123456&height=32" alt="EAN-8 of 0123456">
+						<div class="barcode-content">0123456</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="td-left">EAN-13</td>
+					<td class="td-left">1-D</td>
+					<td class="td-left">/ean-13</td>
+					<td class="td-left">Exactly 12 digits.</td>
+					<td class="td-center">
+						<img src="ean-13?content=012345678901&height=32" alt="EAN-13 of 012345678901">
+						<div class="barcode-content">012345678901</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="td-left">ITF</td>
+					<td class="td-left">1-D</td>
+					<td class="td-left">/itf</td>
+					<td class="td-left">Even size between 2 to 80 digits.</td>
+					<td class="td-center">
+						<img src="itf?content=012345&height=32" alt="ITF of 012345">
+						<div class="barcode-content">012345</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="td-left">QR-Code</td>
+					<td class="td-left">2-D</td>
+					<td class="td-left">/qr</td>
+					<td class="td-left">
+						Nearly any character. Maximum characters depends on level, error correction and input mode.
+						<ul>
+							<li>Numbers only: up to 7089</li>
+							<li>Alphanumeric: up to 4296</li>
+							<li>Binary: up to 2953</li>
+							<li>Kanji/Kana: up to 1817</li>
+						</ul>
+					</td>
+					<td class="td-center">
+						<img src="qr?content=Example&size=64" alt="QR code of Example">
+						<div class="barcode-content">Example</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+	<section>
+		<h2>Common parameters</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Required</th>
+					<th>Default</th>
+					<th>Example 1</th>
+					<th>Example 2</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>content</td>
+					<td>Content of the encoded barcode.</td>
+					<td>yes</td>
+					<td>n/a</td>
+					<td class="td-center">
+						<div>/qr?content=Foo</div>
+						<img src="qr?content=Foo&size=64" alt="QR code of Example">
+						<div class="barcode-content">Foo</div>
+					</td>
+					<td class="td-center">
+						<div>/qr?content=Bar</div>
+						<img src="qr?content=Bar&size=64" alt="QR code of Example">
+						<div class="barcode-content">Bar</div>
+					</td>
+				</tr>
+				<tr>
+					<td>margin</td>
+					<td>Margin around the barcode in pixel or modules, depending on the type of barcode. The margin is part of the height and width of the barcode.</td>
+					<td>no</td>
+					<td>1</td>
+					<td class="td-center">
+						<div>/qr?content=Foo&amp;margin=0</div>
+						<img src="qr?content=Foo&size=64&margin=0" alt="QR code of Example">
+						<div class="barcode-content">Foo</div>
+					</td>
+					<td class="td-center">
+						<div>/qr?content=Foo&amp;margin=8</div>
+						<img src="qr?content=Foo&size=64&margin=8" alt="QR code of Example">
+						<div class="barcode-content">Foo</div>
+					</td>
+				</tr>
+				<tr>
+					<td>color</td>
+					<td>Color of the barcode in AARRGGBB or RRGGBB hex format.</td>
+					<td>no</td>
+					<td>FF000000 (Black)</td>
+					<td class="td-center">
+						<div>/qr?content=Foo&amp;color=FF0000</div>
+						<img src="qr?content=Foo&size=64&color=FF0000" alt="QR code of Example">
+						<div class="barcode-content">Foo</div>
+					</td>
+					<td class="td-center">
+						<div>/qr?content=Foo&amp;color=0000FF</div>
+						<img src="qr?content=Foo&size=64&color=0000FF" alt="QR code of Example">
+						<div class="barcode-content">Foo</div>
+					</td>
+				</tr>
+				<tr>
+					<td>bg-color</td>
+					<td>Color of the background in AARRGGBB or RRGGBB hex format.</td>
+					<td>no</td>
+					<td>FFFFFFFF (White)</td>
+					<td class="td-center">
+						<div>/qr?content=Foo&amp;bg-color=FFFF00</div>
+						<img src="qr?content=Foo&size=64&bg-color=FFFF00" alt="QR code of Example">
+						<div class="barcode-content">Foo</div>
+					</td>
+					<td class="td-center">
+						<div>/qr?content=Foo&amp;color=00FFFF</div>
+						<img src="qr?content=Foo&size=64&bg-color=00FFFF" alt="QR code of Example">
+						<div class="barcode-content">Foo</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+	<section>
+		<h2>1-D barcode parameters</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Required</th>
+					<th>Default</th>
+					<th>Example 1</th>
+					<th>Example 2</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>width</td>
+					<td>The preferred width in pixels. 0 means smallest possible width.</td>
+					<td>no</td>
+					<td>0</td>
+					<td class="td-center">
+						<div>/code-128?content=123&amp;width=32</div>
+						<img src="code-128?content=123&width=32&height=32" alt="Code-128 of Example">
+						<div class="barcode-content">123</div>
+					</td>
+					<td class="td-center">
+						<div>/code-128?content=123&amp;width=128</div>
+						<img src="code-128?content=123&width=128&height=32" alt="Code-128 of Example">
+						<div class="barcode-content">123</div>
+					</td>
+				</tr>
+				<tr>
+					<td>height</td>
+					<td>The preferred height in pixels. 0 means smallest possible height.</td>
+					<td>no</td>
+					<td>0</td>
+					<td class="td-center">
+						<div>/code-128?content=123&amp;height=32</div>
+						<img src="code-128?content=123&height=32" alt="Code-128 of Example">
+						<div class="barcode-content">123</div>
+					</td>
+					<td class="td-center">
+						<div>/code-128?content=123&amp;height=64</div>
+						<img src="code-128?content=123&height=64" alt="Code-128 of Example">
+						<div class="barcode-content">123</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+	<section>
+		<h2>QR-Code barcode parameters</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Required</th>
+					<th>Default</th>
+					<th>Example 1</th>
+					<th>Example 2</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>size</td>
+					<td>The preferred width and height in pixels. 0 means smallest possible value.</td>
+					<td>no</td>
+					<td>0</td>
+					<td class="td-center">
+						<div>/qr?content=123&amp;size=32</div>
+						<img src="qr?content=123&size=32" alt="QR-Code of Example">
+						<div class="barcode-content">123</div>
+					</td>
+					<td class="td-center">
+						<div>/qr?content=123&amp;size=128</div>
+						<img src="qr?content=123&size=128" alt="QR-Code of Example">
+						<div class="barcode-content">123</div>
+					</td>
+				</tr>
+				<tr>
+					<td>version</td>
+					<td>Specifies the exact version of QR code to be encoded.</td>
+					<td>no</td>
+					<td>Automatically calculated for the given content.</td>
+					<td class="td-center">
+						<div>/qr?content=123&amp;version=1</div>
+						<img src="qr?content=123&size=64&version=1" alt="QR-Code of Example">
+						<div class="barcode-content">123</div>
+					</td>
+					<td class="td-center">
+						<div>/qr?content=123&amp;version=8</div>
+						<img src="qr?content=123&size=64&version=8" alt="QR-Code of Example">
+						<div class="barcode-content">123</div>
+					</td>
+				</tr>
+				<tr>
+					<td>error-correction</td>
+					<td>Specifies what degree of error correction to use: L, M, Q or H.</td>
+					<td>no</td>
+					<td>L</td>
+					<td class="td-center">
+						<div>/qr?content=123&amp;error-correction=M</div>
+						<img src="qr?content=123&size=64&error-correction=M" alt="QR-Code of Example">
+						<div class="barcode-content">123</div>
+					</td>
+					<td class="td-center">
+						<div>/qr?content=123&amp;error-correction=H</div>
+						<img src="qr?content=123&size=64&error-correction=H" alt="QR-Code of Example">
+						<div class="barcode-content">123</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+</body>
+</html>
