@@ -3,6 +3,8 @@ REST API to generate barcodes based on ZXing and Quarkus.
 
 ## Supported Formats
 * Code 128
+* Code 39
+* Code 93
 * EAN-8
 * EAN-13
 * ITF
